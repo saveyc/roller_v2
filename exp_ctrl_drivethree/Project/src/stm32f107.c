@@ -145,7 +145,7 @@ void System_Setup(void)
     //RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1 | RCC_AHBPeriph_DMA2 , ENABLE);
 
     /* Enable GPIOs and ADC1 clocks */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC || RCC_APB2Periph_GPIOD
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD
                            | RCC_APB2Periph_AFIO , ENABLE);
 
     /* NVIC configuration */

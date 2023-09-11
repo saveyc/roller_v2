@@ -12,7 +12,7 @@
 #define  TEN_MS_RAMP_CCR_VALUE   145   //0.19V(加减速坡度开启时每10ms增减的值)
 
 #define  RAMP_DELAY_MOTO         5
-#define  RAMP_DELAY_RISE         2
+#define  RAMP_DELAY_RISE         3
 
 #define  MAX_ERR_CNT             5000
 

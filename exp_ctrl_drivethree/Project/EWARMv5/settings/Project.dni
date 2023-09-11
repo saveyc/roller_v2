@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=2055687829
+Checksum=1503148538
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -111,6 +111,10 @@ Bp15=_ "STD_CODE" "{E:\work\ASS\嵌入式\car\Software\source\wuliu_16101301_moto_s
 Bp16=_ "STD_CODE" "{E:\work\ASS\嵌入式\car\Software\source\wuliu_16101301_moto_statue_IO_GD025_hb_IAP10_gz_fk\Project\src\TCPclient.c}.571.13@1" 0 0 0 0 "" 0 "" 0
 Count=17
 [Aliases]
-A0=_ "E:\work\分拣\STM32F107_ETH_LwIP_V1.0.0\Libraries\STM32_ETH_Driver\src\stm32_eth.c" ""
-Count=1
+A0=_ "E:\roller_v2\exp_ctrl_drivethree\Libraries\CMSIS\Core\CM3\core_cm3.h" ""
+A1=_ "E:\roller_v2\exp_ctrl_drivethree\Project\src\can2_bus.c" ""
+A2=_ "E:\roller_v2\exp_ctrl_drivethree\Project\src\gpio.c" ""
+A3=_ "E:\roller_v2\exp_ctrl_drivethree\Project\src\main.c" ""
+A4=_ "E:\work\分拣\STM32F107_ETH_LwIP_V1.0.0\Libraries\STM32_ETH_Driver\src\stm32_eth.c" ""
+Count=5
 SuppressDialog=0

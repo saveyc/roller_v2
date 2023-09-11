@@ -112,7 +112,7 @@ sData_RealtimeState* data_find_ctrl_status(u16 ctrlindex, u16 moudleindex)
 	if (ctrlindex < 2) {
 		return NULL;
 	}
-	if (ctrlindex >= BELT_ZONE_NUM) {
+	if (ctrlindex > BELT_ZONE_NUM) {
 		return NULL;
 	}
 	if (moudleindex == ZONE_TYPE_ONE) {

@@ -12,7 +12,7 @@
           
           
           
-        <Column0>360</Column0><Column1>2</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+        <Column0>411</Column0><Column1>2</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
       </Workspace>
       <Find-in-Files>
         
@@ -33,7 +33,7 @@
     <Windows>
       
       
-    <Wnd1>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-19734-31546</Identity>
@@ -45,7 +45,7 @@
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd1><Wnd3>
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd2>
         <Tabs>
           <Tab>
             <Identity>TabID-9154-3275</Identity>
@@ -67,20 +67,20 @@
           </Tab>
         </Tabs>
         
-      <SelectedTab>1</SelectedTab></Wnd3></Windows>
+      <SelectedTab>1</SelectedTab></Wnd2></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\inc\main.h</Filename><XPos>0</XPos><YPos>86</YPos><SelStart>4690</SelStart><SelEnd>4690</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\stm32f107.c</Filename><XPos>0</XPos><YPos>229</YPos><SelStart>9481</SelStart><SelEnd>9481</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>157</YPos><SelStart>4116</SelStart><SelEnd>4116</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</Filename><XPos>0</XPos><YPos>58</YPos><SelStart>3117</SelStart><SelEnd>3117</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\main.c</Filename><XPos>0</XPos><YPos>58</YPos><SelStart>2183</SelStart><SelEnd>2183</SelEnd></Tab><ActiveTab>4</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\gpio.c</Filename><XPos>30</XPos><YPos>21</YPos><SelStart>652</SelStart><SelEnd>664</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\moto.c</Filename><XPos>0</XPos><YPos>557</YPos><SelStart>14195</SelStart><SelEnd>14195</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\can2_bus.c</Filename><XPos>0</XPos><YPos>304</YPos><SelStart>8472</SelStart><SelEnd>8472</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\can1_bus.c</Filename><XPos>0</XPos><YPos>193</YPos><SelStart>5988</SelStart><SelEnd>5988</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\flash.c</Filename><XPos>0</XPos><YPos>137</YPos><SelStart>4687</SelStart><SelEnd>4687</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h</Filename><XPos>0</XPos><YPos>184</YPos><SelStart>8791</SelStart><SelEnd>8813</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</Filename><XPos>0</XPos><YPos>58</YPos><SelStart>3117</SelStart><SelEnd>3117</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h</Filename><XPos>0</XPos><YPos>184</YPos><SelStart>8791</SelStart><SelEnd>8813</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\inc\main.h</Filename><XPos>0</XPos><YPos>53</YPos><SelStart>2463</SelStart><SelEnd>2463</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</Filename><XPos>0</XPos><YPos>1194</YPos><SelStart>42670</SelStart><SelEnd>42670</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\main.c</Filename><XPos>0</XPos><YPos>70</YPos><SelStart>2279</SelStart><SelEnd>2279</SelEnd></Tab><ActiveTab>4</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\inc\moto.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>452</SelStart><SelEnd>452</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\moto.c</Filename><XPos>0</XPos><YPos>825</YPos><SelStart>27342</SelStart><SelEnd>27358</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\gpio.c</Filename><XPos>0</XPos><YPos>17</YPos><SelStart>675</SelStart><SelEnd>675</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\can2_bus.c</Filename><XPos>0</XPos><YPos>169</YPos><SelStart>5552</SelStart><SelEnd>5552</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\stm32f107.c</Filename><XPos>0</XPos><YPos>405</YPos><SelStart>16102</SelStart><SelEnd>16102</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\can1_bus.c</Filename><XPos>0</XPos><YPos>171</YPos><SelStart>5672</SelStart><SelEnd>5672</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>157</YPos><SelStart>4116</SelStart><SelEnd>4116</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\flash.c</Filename><XPos>0</XPos><YPos>98</YPos><SelStart>4374</SelStart><SelEnd>4374</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-052e2500><key>iaridepm.enu1</key></Toolbar-052e2500></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>524</Bottom><Right>409</Right><x>-2</x><y>-2</y><xscreen>109</xscreen><yscreen>92</yscreen><sizeHorzCX>79795</sizeHorzCX><sizeHorzCY>134307</sizeHorzCY><sizeVertCX>300878</sizeVertCX><sizeVertCY>767883</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>116</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>118</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>172263</sizeHorzCY><sizeVertCX>79795</sizeVertCX><sizeVertCY>134307</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-05dd10c8><key>iaridepm.enu1</key></Toolbar-05dd10c8></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>575</Bottom><Right>460</Right><x>-2</x><y>-2</y><xscreen>123</xscreen><yscreen>104</yscreen><sizeHorzCX>80078</sizeHorzCX><sizeHorzCY>134541</sizeHorzCY><sizeVertCX>300781</sizeVertCX><sizeVertCY>746442</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>153</Bottom><Right>1538</Right><x>-2</x><y>-2</y><xscreen>1540</xscreen><yscreen>155</yscreen><sizeHorzCX>1002604</sizeHorzCX><sizeHorzCY>200517</sizeHorzCY><sizeVertCX>80078</sizeVertCX><sizeVertCY>134541</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

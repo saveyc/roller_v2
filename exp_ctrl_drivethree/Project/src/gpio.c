@@ -391,12 +391,12 @@ void gpio_handleInputScan()
 
 
     // handle MOT3_ALARM single
-    if (input_mot3_alarm.input_state != MOT2_ALARM_IN
+    if (input_mot3_alarm.input_state != MOT3_ALARM_IN
         && input_mot3_alarm.input_confirm_times == 0)
     {
-        input_mot3_alarm.input_middle_state = MOT2_ALARM_IN;
+        input_mot3_alarm.input_middle_state = MOT3_ALARM_IN;
     }
-    if (input_mot3_alarm.input_middle_state == MOT2_ALARM_IN
+    if (input_mot3_alarm.input_middle_state == MOT3_ALARM_IN
         && input_mot3_alarm.input_middle_state != input_mot3_alarm.input_state)
     {
         input_mot3_alarm.input_confirm_times++;

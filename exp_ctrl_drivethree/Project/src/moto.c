@@ -220,6 +220,7 @@ void Mot_Speed_Output_Handle(void)
                 mot2_info.current_speed_ccr_value = mot2_info.target_speed_ccr_value;
             }
             TIM_SetCompare2(TIM3, mot2_info.current_speed_ccr_value);
+//            TIM_SetCompare1(TIM5, mot2_info.current_speed_ccr_value);
         }
 
         ramp_delay = 0;
@@ -285,17 +286,20 @@ void Mot_Speed_Output_Handle(void)
             {
                 mot3_info.current_speed_ccr_value = mot3_info.target_speed_ccr_value;
             }
-            TIM_SetCompare1(TIM5, mot1_info.current_speed_ccr_value);
+//            TIM_SetCompare2(TIM3, mot3_info.current_speed_ccr_value);
+            TIM_SetCompare1(TIM5, mot3_info.current_speed_ccr_value);
         }
 
         ramp_delay_three = 0;
 
         if (mot3_info.set_dir_sel == DIR_CW)
         {
+//              MOT3_DIR(Bit_SET);//实际输出低
             MOT3_DIR(Bit_RESET);//实际输出高
         }
         else
         {
+//            MOT3_DIR(Bit_RESET);//实际输出高
             MOT3_DIR(Bit_SET);//实际输出低
         }
     }
@@ -505,11 +509,11 @@ void Init_Find_Position_Process(void)
 
     if (g_position_status == POS_INIT)//未初始化
     {
-        if (B_LIMIT_SW_2_IN_STATE)//下位
+        if (B_LIMIT_SW_1_IN_STATE)//下位
         {
             g_position_status = POS_DOWN;
         }
-        else if (B_LIMIT_SW_1_IN_STATE)//上位
+        else if (B_LIMIT_SW_2_IN_STATE)//上位
         {
             g_position_status = POS_UP;
         }
@@ -522,14 +526,14 @@ void Init_Find_Position_Process(void)
     {
         if (g_position_set == POS_DOWN)
         {
-            Set_Mot_Roll_Paras(MOT3, 6, DIR_CW, 7);
+            Set_Mot_Roll_Paras(MOT3, 1, DIR_CCW, 0);
             Mot_Set_Start_Cmd(MOT3, RUN_STATE);
             g_position_find_flag = 1;
             g_position_find_timeout = 0;
         }
         else if (g_position_set == POS_UP)
         {
-            Set_Mot_Roll_Paras(MOT3, 6, DIR_CCW, 0);
+            Set_Mot_Roll_Paras(MOT3, 1, DIR_CW, 0);
             Mot_Set_Start_Cmd(MOT3, RUN_STATE);
             g_position_find_flag = 1;
             g_position_find_timeout = 0;
@@ -539,7 +543,7 @@ void Init_Find_Position_Process(void)
     {
         if (g_position_set == POS_DOWN)//下位
         {
-            if (B_LIMIT_SW_2_IN_STATE)
+            if (B_LIMIT_SW_1_IN_STATE)
             {
                 Mot_Set_Start_Cmd(MOT3, STOP_STATE);
                 g_position_status = POS_DOWN;
@@ -553,7 +557,7 @@ void Init_Find_Position_Process(void)
         }
         else if (g_position_set == POS_UP)//上位
         {
-            if (B_LIMIT_SW_1_IN_STATE)
+            if (B_LIMIT_SW_2_IN_STATE)
             {
                 Mot_Set_Start_Cmd(MOT3, STOP_STATE);
                 g_position_status = POS_UP;

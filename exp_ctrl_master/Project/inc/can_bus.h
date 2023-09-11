@@ -43,14 +43,14 @@ typedef struct
     u8 func_id;
     u8 src_id;
     u8 dst_id;
-} sCanFrameExtID;
+}sCanFrameExtID;
 
 typedef struct
 {
     sCanFrameExtID extId;
     u8 data_len;
     u8 data[8];
-} sCanFrameExt;
+}sCanFrameExt;
 
 #pragma pack ()
 

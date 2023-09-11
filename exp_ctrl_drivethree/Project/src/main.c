@@ -147,7 +147,7 @@ void main_onems_process(void)
         Mot_upload_all_state();
         Init_Find_Position_Process();
         moto_ctrl_convey_process();
-
+//        moto_roll_test_process();
 
         //flash
         flash_upload_write_buff();
@@ -155,7 +155,7 @@ void main_onems_process(void)
 //        can_reply_set_para();
 
 
-        //       moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD) 
+//        moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD); 
 
     }
 }

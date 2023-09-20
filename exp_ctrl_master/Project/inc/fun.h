@@ -6,9 +6,11 @@
 /**********主动发送命令*******/
 #define		SEND_MSG_BD2PC_BDONLINE_TYPE                  0x1001        //控制器上线信息
 #define     SEDN_MSG_BD2PC_MOTOMOUDLE_STATUS_TYPE         0x1008        //模块状态信息
+#define     SEND_MSG_BD2PC_PKGTRANSRESULT_TYPE            0x100A        //上传包裹传输结果信息
 
 /**********主动发送的命令的回复******/
 #define		SEND_MSG_BD2PC_BDONLINE_TYPE_ACK              0x9001
+#define     SEND_MSG_BD2PC_PKGTRANSRESULT_TYPEA_ACK       0x900A        //上传包裹传输结果信息回复
 
 /**********接收命令**********/
 #define     RECV_MSG_PC2BD_MOTOPARA_CONFIG_TYPE           0x1002        //电滚筒配置信息
@@ -18,6 +20,7 @@
 #define     RECV_MSG_PC2BD_PKG_ALLOW_FORBID_TYPE          0x1007        //包裹是否允许运输指令
 #define     RECV_MSG_PC2BD_MOTO_RUN_STOP_CMD_TYPE         0x1009        //启停电滚筒指令
 
+
 #define     RECV_MSG_BOOT_CMD_TYPE                        0x1F01        //进入BOOT
 /**********回复接收命令******/
 #define		REPLY_RECV_MSG_PC2BD_MOTOPARA_CONFIG_TYPE     0x9002
@@ -25,7 +28,7 @@
 #define     REPLY_RECV_MSG_PC2BD_ZONE_CONFIG_TYPE         0x9004
 #define     REPLY_RECV_MSG_PC2BD_PKG_TRANS_TYPE           0x9005    
 #define     REPLY_RECV_MSG_PC2BD_PKG_ALLOW_FORBID_TYPE    0x9007   
-#define     REPLY_RECV_MSG_PC2BD_MOTO_RUN_STOP_CMD_TYPE   0x9009        
+#define     REPLY_RECV_MSG_PC2BD_MOTO_RUN_STOP_CMD_TYPE   0x9009
 
 /**********回复接收命令******/
 
@@ -70,5 +73,6 @@ void send_message_to_server(void);
 void upload_moudle_state(void);
 
 void fun_struct_init(void);
+void upload_pkg_result_queue(void);
 
 #endif

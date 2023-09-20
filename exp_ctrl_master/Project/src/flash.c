@@ -13,6 +13,12 @@ void flash_read_zone_conf(void)
     u16 totalnum2 = 0;
     u16 index = 0;
 
+    zonetmp.confid = 0;
+    zonetmp.flashcnt = 0;
+    zonetmp.pkgcal = 0;
+    zonetmp.pkgcurnum = 0;
+
+
     tmp1 = *((u16*)UserParaAddressone) | ((*((u16*)(UserParaAddressone + 2))) << 16);
     num1 = *((u16*)(UserParaAddressone + 4) );
     totalnum1 = *((u16*)(UserParaAddressone + 6));
@@ -94,7 +100,7 @@ void flash_write_zone_conf(void)
 
 
         for (i = 0; i < BELT_ZONE_NUM / 2; i++) {
-            if (zonetmp.zoneNode[i].zoneIndex != 0xFFFF)
+            if ((zonetmp.zoneNode[i].zoneIndex != 0xFFFF) && (zonetmp.zoneNode[i].zoneIndex !=0 ))
             {
                 num++;
             }
@@ -127,6 +133,7 @@ void flash_write_zone_conf(void)
 
 
     j = 0;
+    num = 0;
     FLASH_Unlock();
     FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR);
     if (FLASH_ErasePage(UserParaAddresstwo) == FLASH_COMPLETE)
@@ -138,13 +145,13 @@ void flash_write_zone_conf(void)
 
 
         for (i = BELT_ZONE_NUM / 2; i < BELT_ZONE_NUM; i++) {
-            if (zonetmp.zoneNode[i].zoneIndex != 0xFFFF)
+            if ((zonetmp.zoneNode[i].zoneIndex != 0xFFFF) && (zonetmp.zoneNode[i].zoneIndex !=0 ))
             {
                 num++;
             }
         }
         FLASH_ProgramHalfWord(UserParaAddresstwo + 4, num);
-        FLASH_ProgramHalfWord(UserParaAddressone + 6, zonetmp.zonetotalnum);
+        FLASH_ProgramHalfWord(UserParaAddresstwo + 6, zonetmp.zonetotalnum);
 
 
         for (i = BELT_ZONE_NUM / 2; i < BELT_ZONE_NUM; i++) {
@@ -172,9 +179,9 @@ void flash_write_zone_conf(void)
 
 void flash_upload(void)
 {
-    if (zoneConfig.flashcnt != 0) {
-        zoneConfig.flashcnt--;
-        if (zoneConfig.flashcnt == 0) {
+    if (zonetmp.flashcnt != 0) {
+        zonetmp.flashcnt--;
+        if (zonetmp.flashcnt == 0) {
             flash_write_zone_conf();
             flash_read_zone_conf();
             AddSendMsgToQueue(SEND_MSG_BD2PC_BDONLINE_TYPE);

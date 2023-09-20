@@ -95,7 +95,7 @@ void vcanbus_framereceive_one(CanRxMsg rxMsg)
     //    return;
     //}
 
-    if (frame.extId.dst_id != localStation) {
+    if ((frame.extId.dst_id != localStation) && (frame.extId.dst_id != 0xFF)) {
         return;
     }
 

@@ -1044,6 +1044,9 @@
       <name>$PROJ_DIR$\..\src\data.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\src\flash.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\src\fun.c</name>
     </file>
     <file>

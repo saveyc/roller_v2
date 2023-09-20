@@ -13,6 +13,49 @@ sbelt_Moudle_state    beltMoudlestate;
 sData_pkg_node        pgkNodeDateItem[MAX_PKG_NUM];
 struct xLIST_ITEM     pkgNodeListItem[MAX_PKG_NUM];
 
+
+//包裹结果队列
+sPkgResultNode        pkgresultnode[PKGQUEUELEN];
+sPkgResultQueue       pkgresultqueue;
+
+void DatainitpkgQueue(void)
+{
+
+	sPkgResultQueue* q = NULL;
+	q = &pkgresultqueue;
+
+	q->maxsize = PKGQUEUELEN;
+	q->queue = pkgresultnode;
+	q->front = q->rear = 0;
+}
+void DataaddPkgQueue(sPkgResultNode x)
+{
+
+	sPkgResultQueue* q = NULL;
+	q = &pkgresultqueue;
+
+	if ((q->rear + 1) % q->maxsize == q->front)
+	{
+		return;
+	}
+	q->rear = (q->rear + 1) % q->maxsize; // 求出队尾的下一个位置
+	q->queue[q->rear] = x; // 把x的值赋给新的队尾
+}
+sPkgResultNode* DatagetmsgfromQueue(void)
+{
+	sPkgResultQueue* q = NULL;
+	q = &pkgresultqueue;
+
+	//队列空
+	if (q->front == q->rear)
+	{
+		return NULL;
+	}
+	q->front = (q->front + 1) % q->maxsize; // 使队首指针指向下一个位置
+	return (sPkgResultNode*)(&(q->queue[q->front])); // 返回队首元素
+}
+
+
 void data_msg_init(void)
 {
 	u16 i = 0;
@@ -39,9 +82,9 @@ void data_msg_init(void)
 	zoneConfig.pkgcal = 0;
 
 
-	zonetmp.confid = 0;
-	zonetmp.flashcnt = 0;
-	zonetmp.pkgcal = 0;
+//	zonetmp.confid = 0;
+//	zonetmp.flashcnt = 0;
+//	zonetmp.pkgcal = 0;
 }
 
 
@@ -91,6 +134,11 @@ void data_addto_pkg_list(sData_pkg_node x)
 	pgkNodeDateItem[i].curZonenum = 0;
 	pgkNodeDateItem[i].lastZonenum = 0xFFFF;
 	pgkNodeDateItem[i].sendcmdcnt = 0;
+
+	pgkNodeDateItem[i].curZoneArrive = INVALUE;
+	pgkNodeDateItem[i].nextZonecurpkgstat = 0;
+	pgkNodeDateItem[i].nextZonepkgstatchange = INVALUE;
+
 
 	vListInsert(&pkg_list, pgkNodeDateItem[i].index);
 }

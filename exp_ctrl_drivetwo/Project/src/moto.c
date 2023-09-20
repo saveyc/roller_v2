@@ -256,21 +256,21 @@ void MOT_Error_Detection_Process(void)
     }
 
     //检测电压是否正常
-    if (Get_Vcc_Volt() < 18.5)//电压过低
-    {
-        gpio_Led_Set_Mode(LED_STATUS, LED_B);
-        g_alarm_flag = 0x1;
-    }
-    else if (Get_Vcc_Volt() > 26.5)//电压过高
-    {
-        gpio_Led_Set_Mode(LED_STATUS, LED_B);
-        g_alarm_flag = 0x2;
-    }
-    else
-    {
+//    if (Get_Vcc_Volt() < 18.5)//电压过低
+//    {
+//        gpio_Led_Set_Mode(LED_STATUS, LED_B);
+//        g_alarm_flag = 0x1;
+//    }
+//    else if (Get_Vcc_Volt() > 26.5)//电压过高
+//    {
+//        gpio_Led_Set_Mode(LED_STATUS, LED_B);
+//        g_alarm_flag = 0x2;
+//    }
+//    else
+//    {
         gpio_Led_Set_Mode(LED_STATUS, LED_BL);
         g_alarm_flag = 0;
-    }
+//    }
 
     if (g_alarm_flag != 0)
     {

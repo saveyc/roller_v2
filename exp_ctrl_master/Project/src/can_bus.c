@@ -16,6 +16,8 @@ u16 g_SegBytes = 0;
 u8   canbus_readpara_buff[100];
 u16  canbus_readpara_len = 0;
 
+u8   canbus_src_index[50] = {0};
+
 void InitCanSendQueue(void)
 {
     sCAN_SEND_QUEUE *q = NULL;
@@ -42,7 +44,7 @@ u8 can_bus_send_one_frame(sCanFrameExt sTxMsg)
 {
     CanTxMsg TxMessage;
     
-    TxMessage.ExtId = (sTxMsg.extId.src_id & 0xFF)|((sTxMsg.extId.func_id&0xF)<<8)|((sTxMsg.extId.seg_num&0xFF)<<12)|((sTxMsg.extId.seg_polo&0x3)<<19)| ((sTxMsg.extId.dst_id & 0x7F) << 21);
+    TxMessage.ExtId = (sTxMsg.extId.src_id & 0xFF)|((sTxMsg.extId.func_id&0xF)<<8)|((sTxMsg.extId.seg_num&0x7F)<<12)|((sTxMsg.extId.seg_polo&0x3)<<19)| ((sTxMsg.extId.dst_id & 0xFF) << 21);
     TxMessage.IDE = CAN_ID_EXT;
     TxMessage.RTR = CAN_RTR_DATA;
     TxMessage.DLC = sTxMsg.data_len;
@@ -84,9 +86,16 @@ void module_status_recv_process(u8* buf,u16 recv_len,u8 src_id)
 {
     u8 index = 0;
     index = src_id - 2;
+    
+    static u16 cnt = 0;
 
     if (index >= BELT_ZONE_NUM) {
         return;
+    }
+    
+    if(cnt < 40){
+       canbus_src_index[cnt] = src_id;
+       cnt++;
     }
 
     beltMoudlestate.state[index].ctrlindex = src_id;
@@ -324,6 +333,16 @@ void vcanbus_send_start_cmd(sMoudle_cmd moudle, u16 frame, u8 dst)
 
     can_bus_send_msg(buff,sendlen, CAN_FUNC_ID_START_STOP_CMD, local_station,dst);
 }
+
+void vcanbus_send_askmodulestate_cmd(void)
+{
+    u8 buff[10];
+    u16 sendlen = 0;
+
+    can_bus_send_msg(buff, sendlen, CAN_FUNC_ID_MODULE_STATUS, local_station, ALL_BOARD);
+}
+
+
 
 
 

@@ -46,11 +46,11 @@ void Set_Mot_Roll_Paras(u8 motX, u8 speed_sel, u8 dir_sel, u8 ramp_sel)
     u16 speed_value_t;
     u16 ramp_value_t;
 
-    if ((speed_sel > 7) || (speed_sel == 0)) {
+    if ((speed_sel >= 7) || (speed_sel == 0)) {
         speed_sel = 7;
     }
 
-    if (ramp_sel > 7) {
+    if (ramp_sel >= 7) {
         speed_sel = 7;
     }
     if ((dir_sel != DIR_CW) && (dir_sel != DIR_CW)) {
@@ -235,11 +235,11 @@ void Mot_Speed_Output_Handle(void)
         }
         if (mot2_info.set_dir_sel == DIR_CW)
         {
-            MOT2_DIR(Bit_RESET);//实际输出高
+            MOT2_DIR(Bit_SET);//实际输出高
         }
         else
         {
-            MOT2_DIR(Bit_SET);//实际输出低
+            MOT2_DIR(Bit_RESET);//实际输出低
         }
     }
 
@@ -493,7 +493,7 @@ void Mot_upload_all_state(void)
         buff[7] |= 1 << 4;
     }
     if (mot3_info.alarm_flag == VALUE) {
-        buff[7] |= 1 << 7;
+        buff[7] |= 1 << 5;
     }
     sendlen = 8;
 
@@ -526,14 +526,14 @@ void Init_Find_Position_Process(void)
     {
         if (g_position_set == POS_DOWN)
         {
-            Set_Mot_Roll_Paras(MOT3, 1, DIR_CCW, 0);
+            Set_Mot_Roll_Paras(MOT3, 1, DIR_CW, 0);
             Mot_Set_Start_Cmd(MOT3, RUN_STATE);
             g_position_find_flag = 1;
             g_position_find_timeout = 0;
         }
         else if (g_position_set == POS_UP)
         {
-            Set_Mot_Roll_Paras(MOT3, 1, DIR_CW, 0);
+            Set_Mot_Roll_Paras(MOT3, 1, DIR_CCW, 0);
             Mot_Set_Start_Cmd(MOT3, RUN_STATE);
             g_position_find_flag = 1;
             g_position_find_timeout = 0;
@@ -636,12 +636,12 @@ void moto_upload_moudle_status(void)
     //MOTO1
     moudle1_info.uploadcnt++;
     if ((moudle1_info.set_start_type == RUN_TRIGSTOP) && (moudle1_info.set_start_status == RUN_STATE)) {
-        if (((input_in2_1.input_state == 1)  || (input_in1_2.input_state == 1) ) && (moudle1_info.roll_dir_set == DIR_BK)) {
+        if (((input_in2_1.input_state == 1)  || (input_in1_1.input_state == 1) ) && (moudle1_info.roll_dir_set == DIR_BK)) {
             Select_Direction_Stop(DIR_BK);//停止
             moudle1_info.set_start_status = STOP_STATE;
             moudle1_info.set_start_type = CONTINUE_RUN;
         }
-        if (((input_in1_1.input_state == 1) || (input_in2_2.input_state == 1)) && ((moudle1_info.roll_dir_set == DIR_FW))) {
+        if (((input_in1_2.input_state == 1) || (input_in2_2.input_state == 1)) && ((moudle1_info.roll_dir_set == DIR_FW))) {
             Select_Direction_Stop(DIR_FW);//停止
             moudle1_info.set_start_status = STOP_STATE;
             moudle1_info.set_start_type = CONTINUE_RUN;
@@ -666,14 +666,14 @@ void moto_upload_moudle_status(void)
     }
 
     //MOTO2
-    moudle2_info.uploadcnt++; //俩对光电接在 左前 和右后
+    moudle2_info.uploadcnt++; //
     if ((moudle2_info.set_start_type == RUN_TRIGSTOP) && (moudle2_info.set_start_status == RUN_STATE)) {
-        if (((input_in2_1.input_state == 1) | (input_in1_1.input_state == 1)) && (moudle2_info.roll_dir_set == DIR_LF)) {
+        if (((input_in2_1.input_state == 1) | (input_in1_2.input_state == 1)) && (moudle2_info.roll_dir_set == DIR_LF)) {
             Select_Direction_Stop(DIR_LF);//停止
             moudle2_info.set_start_status = STOP_STATE;
             moudle2_info.set_start_type = CONTINUE_RUN;
         }
-        if (((input_in2_2.input_state == 1) || (input_in1_2.input_state == 1)) && (moudle2_info.roll_dir_set == DIR_RT)) {
+        if (((input_in2_2.input_state == 1) || (input_in1_1.input_state == 1)) && (moudle2_info.roll_dir_set == DIR_RT)) {
             Select_Direction_Stop(DIR_RT);//停止
             moudle2_info.set_start_status = STOP_STATE;
             moudle2_info.set_start_type = CONTINUE_RUN;

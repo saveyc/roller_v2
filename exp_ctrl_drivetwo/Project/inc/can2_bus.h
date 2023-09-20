@@ -14,7 +14,7 @@ enum
     CAN_FUNC_ID_PARA_DATA = 0x1,         //用户参数命令(读写)
     CAN_FUNC_ID_MODULE_STATUS = 0x2,     //模块实时状态信息(周期指令)
     CAN_FUNC_ID_START_STOP_CMD = 0x3,    //启停命令
-    CAN_FUNC_ID_BOOT_MODE = 0xF,          //boot
+    CAN_FUNC_ID_BOOT_MODE = 0xF,         //boot
 };
 
 enum {

@@ -73,11 +73,12 @@ void vcanbus_frame_receive_two(CanRxMsg rxMsg)
     frame.data_len = rxMsg.DLC;
 
     memcpy(frame.data, rxMsg.Data, rxMsg.DLC);
+    
+    vcanbus_addto_cansendqueue_one(frame);
 
-    if (frame.extId.dst_id != localStation) {
-        vcanbus_addto_cansendqueue_one(frame);
+    if ((frame.extId.dst_id != localStation) && (frame.extId.dst_id != 0xFF)) {
+        return;
     }
-
 
 
     if ((frame.extId.func_id == CAN_FUNC_ID_BOOT_MODE) && (frame.extId.dst_id == localStation))
@@ -246,6 +247,10 @@ void canbus_recv_start_cmd(u8* buf)
     cmd = buf[3];
     dir = buf[4];
     type = buf[5];
+
+    if (buf[0] != ZONE_TYPE_RISE) {
+        return;
+    }
 
     if (frame == canrecv_framecnt_rise) {
         return;

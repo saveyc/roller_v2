@@ -64,11 +64,13 @@ u16 GetSendMsgFromQueue(void)
     return (outQueue(&msgSendQueue));
 }
 
+//接收模块配置信息
 void fun_recv_beltMoudle_para(u8* buf,u16 len)
 {
     canbus_send_user_moudlepara(buf, len);
 }
 
+//接收 区域配置信息
 void funrec_zoneConfig_cmd(u8* buf)
 {
     u16 i = 0;
@@ -120,9 +122,10 @@ void funrec_zoneConfig_cmd(u8* buf)
         }
     }
 
+    j = zonetmp.zonetotalnum;
     for (i = 0; i < total; i++) {
 
-        for (j = zonetmp.zonetotalnum; j < zonetmp.zonecurnum; j++) {
+          
             //ctrlindex = (buf[i * 14 + 2 + 2] | (buf[i * 14 + 3 + 2] << 8));
             zonetmp.zoneNode[j].zoneIndex = (buf[i * 14 + 0 + offset] | (buf[i * 14 + 1 + offset] << 8));
             zonetmp.zoneNode[j].ctrlIndex = (buf[i * 14 + 2 + offset] | (buf[i * 14 + 3 + offset] << 8));
@@ -134,14 +137,15 @@ void funrec_zoneConfig_cmd(u8* buf)
 
             statenode = data_find_ctrl_status(zonetmp.zoneNode[j].ctrlIndex, zonetmp.zoneNode[j].beltMoudleIndex);
             statenode->zoneIndex = zonetmp.zoneNode[j].zoneIndex;
+            j++;
 
-        }
     }
 
     zonetmp.zonetotalnum = zonetmp.zonetotalnum + zonetmp.zonecurnum;
 
 } 
 
+//接收  包裹运输信息
 void funrecv_pkg_trans_cmd(u8* buff)
 {
     sData_pkg_node node;
@@ -160,6 +164,8 @@ void funrecv_pkg_trans_cmd(u8* buff)
 
 }
 
+
+// 接收 控制包裹运输信息
 void funrecv_pkg_state_cmd(u8* buff)
 {
     sData_pkg_node* node;
@@ -185,6 +191,7 @@ void funrecv_pkg_state_cmd(u8* buff)
 
 }
 
+//接收点动控制滚筒信息
 void funrecv_start_stop_moudle(u8* buf)
 {
     sData_zone_node* zonenode = NULL;
@@ -356,8 +363,8 @@ void send_bdonline_msg(u8 *buf, u16 *len, u16 type)
     buf[3] = 0x00;
     buf[4] = 0x00;
     buf[5] = 0x00;
-    buf[6] = 0x0B;
-    buf[7] = 0x00;
+    buf[6] = sendlen & 0xFF;
+    buf[7] = (sendlen >> 8) & 0xFF;
     buf[8] = sum;
     buf[9] = type & 0xFF;
     buf[10] = (type >> 8) & 0xFF;
@@ -371,7 +378,6 @@ void send_bdonline_msg(u8 *buf, u16 *len, u16 type)
     buf[16] = (funOnlineCtrl.confid >> 8) & 0xFF;
     buf[17] = (funOnlineCtrl.confid >> 16) & 0xFF;
     buf[18] = (funOnlineCtrl.confid >> 24) & 0xFF;
-
 
     sum = 0;
     for (i = 0; i < sendlen - 9; i++) {
@@ -458,8 +464,8 @@ void send_reply_zoneconf_msg(u8* buf, u16* len, u16 type)
     buf[3] = 0x00;
     buf[4] = 0x00;
     buf[5] = 0x00;
-    buf[6] = 0x0B;
-    buf[7] = 0x00;
+    buf[6] = sendlen & 0xFF;
+    buf[7] = (sendlen >> 8) & 0xFF;
     buf[8] = sum;
     buf[9] = type & 0xFF;
     buf[10] = (type >> 8) & 0xFF;
@@ -468,6 +474,51 @@ void send_reply_zoneconf_msg(u8* buf, u16* len, u16 type)
     buf[12] = (zonetmp.pkgcurnum >> 8) & 0xFF;
 
 
+
+    sum = 0;
+    for (i = 0; i < sendlen - 9; i++) {
+        sum ^= buf[9 + i];
+    }
+    buf[8] = sum;
+
+    *len = sendlen;
+}
+
+
+void send_pkg_result_msg(u8* buf, u16* len, u16 type)
+{
+    u8 sum = 0;
+    u16 sendlen = 0;
+    u16 i = 0;
+    sPkgResultNode* node = NULL;
+
+    node = DatagetmsgfromQueue();
+
+    if (node == NULL) {
+        *len = 0;
+        return;
+    }
+
+    sendlen = 11 + 6;
+
+    buf[0] = 0xAA;
+    buf[1] = 0xAA;
+    buf[2] = 0x01;
+    buf[3] = 0x00;
+    buf[4] = 0x00;
+    buf[5] = 0x00;
+    buf[6] = sendlen & 0xFF;
+    buf[7] = (sendlen >> 8) & 0xFF;
+    buf[8] = sum;
+    buf[9] = type & 0xFF;
+    buf[10] = (type >> 8) & 0xFF;
+
+    buf[11] = node->pkgid & 0xFF;
+    buf[12] = (node->pkgid >> 8) & 0xFF;
+    buf[13] = (node->pkgid >> 16) & 0xFF;
+    buf[14] = (node->pkgid >> 24) & 0xFF;
+    buf[15] = node->result & 0xFF;
+    buf[16] = (node->result >> 8) & 0xFF;
 
     sum = 0;
     for (i = 0; i < sendlen - 9; i++) {
@@ -516,6 +567,10 @@ void send_message_to_server(void)
         send_reply_zoneconf_msg(&(tcp_client_list[0].tcp_send_buf[0]), &(tcp_client_list[0].tcp_send_len), msg_type);
         tcp_client_list[0].tcp_send_en = 1;
         break;
+    case SEND_MSG_BD2PC_PKGTRANSRESULT_TYPE:
+        send_pkg_result_msg(&(tcp_client_list[0].tcp_send_buf[0]), &(tcp_client_list[0].tcp_send_len), msg_type);
+        tcp_client_list[0].tcp_send_en = 1;
+        break;
     default:
         if(tcp_client_list[0].tcp_client_statue == CLIENT_CONNECT_OK)
         {
@@ -530,6 +585,8 @@ void send_message_to_server(void)
     }
 }
 
+
+//更新模块状态信息
 void upload_moudle_state(void)
 {
     u16 i = 0;
@@ -546,7 +603,7 @@ void upload_moudle_state(void)
             upload_pkg_cnt = 0;
             for (i = zonestate_index; i < BELT_ZONE_NUM; i++) {
                 zonenode = zoneConfig.zoneNode[i];
-                if (zonenode.zoneIndex != 0xFFFF) {
+                if ((zonenode.zoneIndex != 0xFFFF) && (zonenode.zoneIndex != 0)) {
                     statenode = data_find_ctrl_status(zonenode.ctrlIndex, zonenode.beltMoudleIndex);
                     upload_motostate_buff[10 * j + 2] = zonenode.zoneIndex & 0xFF;
                     upload_motostate_buff[10 * j + 2 + 1] = (zonenode.zoneIndex >> 8) & 0xFF;
@@ -566,6 +623,7 @@ void upload_moudle_state(void)
             if (i == BELT_ZONE_NUM) {
                 upload_state_flag = INVALUE;
                 zonestate_index = 0;
+
                 upload_motostate_buff[0] = num;
                 upload_motostate_buff[1] = (num >> 8) & 0xFF;
 
@@ -579,3 +637,17 @@ void upload_moudle_state(void)
         }
     }
 }
+
+void upload_pkg_result_queue(void)
+{
+    sPkgResultQueue* q = NULL;
+    q = &pkgresultqueue;
+
+    if (q->front != q->rear) {
+        AddSendMsgToQueue(SEND_MSG_BD2PC_PKGTRANSRESULT_TYPE);
+    }
+}
+
+
+
+

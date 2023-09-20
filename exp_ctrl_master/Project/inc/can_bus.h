@@ -6,6 +6,8 @@
 #define CAN_TX_BUFF_SIZE      300
 #define CAN_RX_BUFF_SIZE      300
 
+#define ALL_BOARD            0xFF
+
 enum
 {
     CAN_FUNC_ID_PARA_DATA     = 0x1,     //用户参数命令(读写)
@@ -74,5 +76,6 @@ void canbus_send_user_moudlepara(u8* buf, u16 len);
 void canbus_read_user_moudlepara(u8 dst);
 void canbus_recv_read_moudlepara(u8* buff, u16 len);
 void vcanbus_send_start_cmd(sMoudle_cmd moudle, u16 frame, u8 dst);
+void vcanbus_send_askmodulestate_cmd(void);
 
 #endif

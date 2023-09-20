@@ -122,9 +122,9 @@ void main_init_process(void)
     //flash
     flash_init();
 
-    //    moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD);
+    //   moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD);
     //    moto_set_run_cmd(MOT1, RUN_STATE, RUN_TRIGSTOP, RUN_AHEAD_TOBACK);
-    //    moto_set_run_cmd(MOT2,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD);
+    //   moto_set_run_cmd(MOT2,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD);
     //    moto_set_run_cmd(MOT2,RUN_STATE,RUN_TRIGSTOP,RUN_AHEAD_TOBACK);
 
 }
@@ -151,7 +151,7 @@ void main_onems_process(void)
 
 
 
-        //       moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD) 
+//         moto_set_run_cmd(MOT2,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD); 
 
     }
 }

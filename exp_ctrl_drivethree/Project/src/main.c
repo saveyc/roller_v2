@@ -55,7 +55,7 @@ float Get_Internal_Temperate(void)
     float temperate;
 
     adcx = Get_Adc(ADC_Channel_16);
-    temperate = (1.26 - (float)adcx * (3.3 / 4096)) / (-0.00423) + 25;//雅特力芯�?
+    temperate = (1.26 - (float)adcx * (3.3 / 4096)) / (-0.00423) + 25;
     return temperate;
 }
 
@@ -67,6 +67,7 @@ float Get_Internal_Temperate(void)
   * @param  None
   * @retval None
   */
+
 int main(void)
 {
     System_Setup();

@@ -216,6 +216,7 @@ void main_init_msg(void)
     //data.h
     data_msg_init();
     data_pkg_list_init();
+    DatainitpkgQueue();
     //flash.h
     flash_read_zone_conf();
 }
@@ -230,12 +231,14 @@ void main_onems_process(void)
 
         //fun.h
         upload_moudle_state();
-
+        upload_pkg_result_queue();
         //flash.h
         flash_upload();
 
+
         if (upload_state_cnt > 300) {
             upload_state_cnt = 0;
+            vcanbus_send_askmodulestate_cmd();
             upload_state_flag = VALUE;
         }
     }

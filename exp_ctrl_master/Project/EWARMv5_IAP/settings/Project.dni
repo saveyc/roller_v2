@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-1445465216
+Checksum=1914066437
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -99,8 +99,7 @@ Bp3=_ "STD_CODE" "{D:\wuliu\工程备份\WULIU_PORT_CTRL_MASTER_PROJECT_16050701\Pro
 Bp4=_ "STD_CODE" "{D:\wuliu\工程备份\WULIU_PORT_CTRL_MASTER_PROJECT_16050701\Project\src\stm32f10x_it.c}.81.5@1" 0 0 0 0 "" 0 "" 0
 Bp5=_ "STD_CODE" "{D:\wuliu\工程备份\WULIU_PORT_CTRL_MASTER_PROJECT_16050701\Project\src\stm32f10x_it.c}.93.5@1" 0 0 0 0 "" 0 "" 0
 Bp6=_ "STD_CODE" "{D:\Express\EXP_IO_CTRL_PROJECT_V1_1_4\EXP_IO_CTRL_PROJECT_V1_1_4_T161226\Project\src\usart.c}.52.13@1" 0 0 0 0 "" 0 "" 0
-Bp7=_ "STD_CODE" "{G:\roller_v2\roller_v2\exp_ctrl_master\Project\src\fun.c}.144.5@1" 1 0 0 0 "" 0 "" 0
-Count=8
+Count=7
 [Aliases]
 A0=_ "D:\wuliu\WULIU_IO_CTRL_PROJECT_16061401\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c" ""
 A1=_ "D:\wuliu\WULIU_IO_CTRL_PROJECT_16061401\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c" ""

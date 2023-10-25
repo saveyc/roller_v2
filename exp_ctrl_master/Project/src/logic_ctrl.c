@@ -49,7 +49,9 @@ void logic_pkg_trans_process(void)
 					prestatenode = data_find_ctrl_status(prenode->ctrlIndex, prenode->beltMoudleIndex);
 					prestatenode->zonePkg = 0;
 					prestatenode->transsuccess = INVALUE;
-					prestatenode->zoneState &= 0xFE3F;      //无货
+//					prestatenode->zoneState &= 0xFE3F;      //无货
+					prestatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+					prestatenode->zoneState |= (1 << 5);         //置为无货状态
 				}
 				else {
 					prenode = NULL;
@@ -63,7 +65,7 @@ void logic_pkg_trans_process(void)
 
 
 				//更新下一区域信息
-				if ((pkgnode->curZonenum) >= (pkgnode->totalzoneNum - 1)) {
+				if ((pkgnode->curZonenum) >= (pkgnode->totalzoneNum - 1)) {    //当前区域已经是最后一个区域
 					pkgnode->nextZoneIndex = FINAL_CAR;
 					nextnode = NULL;
 					nextstatenode = NULL;
@@ -100,7 +102,7 @@ void logic_pkg_trans_process(void)
 				}
 
 
-				//更新下一区域信息
+				//判断下一区域的是否有包裹   *
 				if (nextstatenode != NULL) {
 					if (((pkgnode->nextZonedir == RUN_AHEAD_TOBACK) || (pkgnode->nextZonedir == RUN_LEFT_TOBACK)
 						|| (pkgnode->nextZonedir == RUN_RIGHT_TOBACK))) {
@@ -111,7 +113,6 @@ void logic_pkg_trans_process(void)
 							pkgnode->nextZonechangenum++;
 						}
 					}
-
 					if (((pkgnode->nextZonedir == RUN_BACK_TOAHEAD) || (pkgnode->nextZonedir == RUN_LEFT_TOAHEAD)
 						|| (pkgnode->nextZonedir == RUN_RIGHT_TOAHEAD)) ) {
 						nextpkgstat = ((((nextstatenode->zoneState >> 2) & 0x1) == 1) || (((nextstatenode->zoneState >> 4) & 0x1) == 1));
@@ -129,8 +130,7 @@ void logic_pkg_trans_process(void)
 							pkgnode->nextZonecurpkgstat = nextpkgstat;
 							pkgnode->nextZonepkgstatchange = VALUE;
 							pkgnode->nextZonechangenum++;
-						}
-						
+						}						
 					}
 					if (((pkgnode->nextZonedir == RUN_LEFT_TORIGHT) || (pkgnode->nextZonedir == RUN_AHEAD_TORIGHT)
 						|| (pkgnode->nextZonedir == RUN_BACK_TORIGHT))) {
@@ -141,13 +141,15 @@ void logic_pkg_trans_process(void)
 							pkgnode->nextZonechangenum++;
 						}
 					}
-
 				}
 
 				//当前区域状态更新
 				//已经到达最后一段区域  (认为最后一段非顶升模块)
 				if ((pkgnode->curZonenum) == (pkgnode->totalzoneNum - 1)) {
-					curstatenode->zoneState &= 0xFE5F;
+					curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+					curstatenode->zoneState |= (0x2 << 5);         //置为有货状态
+
+					//curstatenode->zoneState &= 0xFE5F;
 					curstatenode->zonePkg = pkgnode->pkgId;
 					if (((((curstatenode->zoneState >> 2) & 0x1) == 1) && (pkgnode->curZonedir == RUN_BACK_TOAHEAD))
 						|| ((((curstatenode->zoneState >> 1) & 0x1) == 1) && (pkgnode->curZonedir == RUN_AHEAD_TOBACK))) {
@@ -195,11 +197,11 @@ void logic_pkg_trans_process(void)
 								}
 							}
 							curstatenode->zonePkg = 0;
-							curstatenode->zoneState &= 0;
+							curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+//                          curstatenode->zoneState &= 0;
 //							curstatenode->transsuccess = VALUE;
 
 						}
-                        //需要考虑成功分拣以后 该上传和执行什么操作
 						uxListRemove(pkgnode->index);
 						continue;
 //						return;
@@ -207,12 +209,16 @@ void logic_pkg_trans_process(void)
 				}
 				else {
 					// curstatenode->zoneState &= 0xFF17;
-					curstatenode->zoneState &= 0xFE5F;
+					curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+					curstatenode->zoneState |= (0x2 << 5);         //置为有货状态
+					//curstatenode->zoneState &= 0xFE5F;
 					curstatenode->zonePkg = pkgnode->pkgId;
 					if (((pkgnode->curZonedir == RUN_AHEAD_TOBACK) || (pkgnode->curZonedir == RUN_LEFT_TOBACK)
 						|| (pkgnode->curZonedir == RUN_RIGHT_TOBACK)) && ((((curstatenode->zoneState >> 1) & 0x1) == 1) 
 							|| (((curstatenode->zoneState >> 3) & 0x1) == 1))) {
-						curstatenode->zoneState &= 0xFE9F;
+						//curstatenode->zoneState &= 0xFE9F;
+						curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+						curstatenode->zoneState |= (0x4 << 5);       //置为正在出货
 						if (pkgnode->curZoneArrive == INVALUE) {
 							//给前一段模块发停止指令
 							if (prenode != NULL) {
@@ -241,7 +247,9 @@ void logic_pkg_trans_process(void)
 					if (((pkgnode->curZonedir == RUN_BACK_TOAHEAD) || (pkgnode->curZonedir == RUN_LEFT_TOAHEAD)
 						|| (pkgnode->curZonedir == RUN_RIGHT_TOAHEAD)) && ((((curstatenode->zoneState >> 2) & 0x1) == 1) 
 							|| (((curstatenode->zoneState >> 4) & 0x1) == 1))) {
-						curstatenode->zoneState &= 0xFE9F;
+						//curstatenode->zoneState &= 0xFE9F;
+						curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+						curstatenode->zoneState |= (0x4 << 5);       //置为正在出货
 						if (pkgnode->curZoneArrive == INVALUE) {
 							//给前一段模块发停止指令
 							if (prenode != NULL) {
@@ -270,7 +278,9 @@ void logic_pkg_trans_process(void)
 					if (((pkgnode->curZonedir == RUN_RIGHT_TOLEFT) || (pkgnode->curZonedir == RUN_AHEAD_TOLEFT)
 						|| (pkgnode->curZonedir == RUN_BACK_TOLEFT)) && ((((curstatenode->zoneState >> 2) & 0x1) == 1)
 							|| (((curstatenode->zoneState >> 3) & 0x1) == 1))) {
-						curstatenode->zoneState &= 0xFE9F;
+						//curstatenode->zoneState &= 0xFE9F;
+						curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+						curstatenode->zoneState |= (0x4 << 5);       //置为正在出货
 						if (pkgnode->curZoneArrive == INVALUE) {
 							//给前一段模块发停止指令
 							if (prenode != NULL) {
@@ -299,7 +309,9 @@ void logic_pkg_trans_process(void)
 					if (((pkgnode->curZonedir == RUN_LEFT_TORIGHT) || (pkgnode->curZonedir == RUN_AHEAD_TORIGHT)
 						|| (pkgnode->curZonedir == RUN_BACK_TORIGHT)) && ((((curstatenode->zoneState >> 1) & 0x1) == 1)
 							|| (((curstatenode->zoneState >> 4) & 0x1) == 1))) {
-						curstatenode->zoneState &= 0xFE9F;
+						//curstatenode->zoneState &= 0xFE9F;
+						curstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+						curstatenode->zoneState |= (0x4 << 5);       //置为正在出货
 						if (pkgnode->curZoneArrive == INVALUE) {
 							//给前一段模块发停止指令
 							if (prenode != NULL) {
@@ -325,17 +337,20 @@ void logic_pkg_trans_process(void)
 							pkgnode->curZoneArrive = VALUE;
 						}
 					}
-				}
+				
+                }
 
-				//更新下一个区域的状态
+				//更新下一个区域的状态 并且判断切换区域
 				if (pkgnode->nextZoneIndex != FINAL_CAR) {
 					nextstatenode->transsuccess = INVALUE;
-					nextstatenode->zonePkg = 0;
+//					nextstatenode->zonePkg = 0;
 //					nextstatenode->zoneState  &= 0xFF47;
-					nextstatenode->zoneState &= 0xFF1F;
+					//nextstatenode->zoneState &= 0xFF1F;
+					nextstatenode->zoneState &= ~(0xF << 5);      //清除货物状态
+					nextstatenode->zoneState |= (0x8 << 5);       //置为等待接货状态
                                          
-                                        
-                    if (pkgnode->nextZonecurpkgstat == 0) {
+                    // 下一个区域光电没检测到货物 且没有货                   
+                    if ((pkgnode->nextZonecurpkgstat == 0) && (nextstatenode->zonePkg == 0)) {
 						//判断并切换区域
                         if ((((nextstatenode->zoneState >> 1) & 0x1) == 1) || (((nextstatenode->zoneState >> 2) & 0x1) == 1)
                                 || (((nextstatenode->zoneState >> 3) & 0x1) == 1) || (((nextstatenode->zoneState >> 4) & 0x1) == 1)) {
@@ -362,16 +377,13 @@ void logic_pkg_trans_process(void)
                                                 moudletmp.moudle = ZONE_TYPE_RISE;
                                                 vcanbus_send_start_cmd(moudletmp, cansend_framecnt_rise[prenode->ctrlIndex - 2], prenode->ctrlIndex);
                                         }
-                                }
-    
+                                }   
                                 pkgnode->curZonenum++;
                                 pkgnode->curZoneArrive = INVALUE; 
 								pkgnode->nextZonechangenum = 0;
                                 continue;
-//						return;
                         }                                          
 					}
-
 				}
 
 				//当前区域要发送的命令更新
@@ -381,10 +393,9 @@ void logic_pkg_trans_process(void)
 					moudlecmdcur.dir = pkgnode->curZonedir;
 					moudlecmdcur.type = RUN_TRIGSTOP;					
 					moudlecmdnext.cmd = RUN_DEFAULT;
-
 				}
 				else if((pkgnode->curZonenum) == (pkgnode->totalzoneNum - 2)){
-					if (pkgnode->nextZonecurpkgstat != 0) {
+					if (pkgnode->nextZonecurpkgstat != 0) {                           //如果最后一节皮带光电被触发了
 						moudlecmdcur.moudle = curnode->beltMoudleIndex;
 						moudlecmdcur.cmd = RUN_CMD;
 						moudlecmdcur.dir = pkgnode->curZonedir;
@@ -431,6 +442,7 @@ void logic_pkg_trans_process(void)
 					}
 				}
 
+                //下一个区域光电改变过  则认为当前区域会动作在指定位置
 				if (pkgnode->nextZonechangenum >= 1) {
 					if (((pkgnode->curZonedir == RUN_AHEAD_TOBACK) || (pkgnode->curZonedir == RUN_LEFT_TOBACK)
 						|| (pkgnode->curZonedir == RUN_RIGHT_TOBACK))) {
@@ -451,11 +463,13 @@ void logic_pkg_trans_process(void)
 					}
 				}
 
+
+				//给从控制器发送指令
 				if (pkgnode->curZonenum != pkgnode->lastZonenum)
 				{
 					pkgnode->lastZonenum = pkgnode->curZonenum;
 
-					//给当前的模块发送运行指令
+					//给当前的模块发送指令
 					if (moudlecmdcur.cmd != RUN_DEFAULT) {
 						if (moudlecmdcur.moudle == ZONE_TYPE_ONE) {
 							cansend_framecnt_one[curnode->ctrlIndex - 2]++;

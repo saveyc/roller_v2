@@ -133,11 +133,13 @@ typedef struct {
 	u16 curZonedir;                         //包裹在当前区域的传输方向
 	u16 curZoneruntype;                     //当前区域包裹运行类型
 	u16 curZoneArrive;                      //到达当前区域
+	u16 curZoneContinued;                   //在当前区域运输了多长时间
 	u16 nextZoneIndex;                      //欲前往的下一段区域的编号
 	u16 nextZoneStatus;                     //包裹在欲前往的下一段区域的状态
 	u16 nextZoneCnt;                        //欲前往的下一段区域的接货时间
 	u16 nextZonedir;                        //包裹欲前往的下一个区域的传输方向
 	u16 nextZoneruntype;                    //前往的下一个区域的包裹运行类型
+	u16 nextZoneContinued;                  //欲前往的下一个区域运输了多长时间
 //	u16 nextZonelastpkgstat;                //包裹欲前往的下一个区域的之前的包裹状态
 	u16 nextZonecurpkgstat;                 //包裹欲前往的下一个区域的当前的包裹状态
 	u16 nextZonepkgstatchange;              //包裹欲前往的下一个区域的当前的包裹状态变化

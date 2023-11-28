@@ -221,6 +221,7 @@ void Mot_Speed_Output_Handle(void)
             }
             TIM_SetCompare2(TIM3, mot2_info.current_speed_ccr_value);
 //            TIM_SetCompare1(TIM5, mot2_info.current_speed_ccr_value);
+             //TIM_SetCompare1(TIM5, mot3_info.current_speed_ccr_value);
         }
 
         ramp_delay = 0;
@@ -236,10 +237,12 @@ void Mot_Speed_Output_Handle(void)
         if (mot2_info.set_dir_sel == DIR_CW)
         {
             MOT2_DIR(Bit_SET);//实际输出高
+            //MOT3_DIR(Bit_RESET);//实际输出高
         }
         else
         {
             MOT2_DIR(Bit_RESET);//实际输出低
+            //MOT3_DIR(Bit_SET);//实际输出低
         }
     }
 
@@ -301,6 +304,7 @@ void Mot_Speed_Output_Handle(void)
         {
 //            MOT3_DIR(Bit_RESET);//实际输出高
             MOT3_DIR(Bit_SET);//实际输出低
+            //MOT2_DIR(Bit_RESET);//实际输出高
         }
     }
     
@@ -585,26 +589,26 @@ void Select_Direction_Run(u8 direction)
 {
     if (direction == DIR_FW)//前
     {
-        g_position_set = POS_UP;//前
+        g_position_set = POS_DOWN;//前
 
         Set_Mot_Roll_Paras(MOT1, mot1_info.set_speed_sel, DIR_CW, mot1_info.set_ramp_sel);
         Mot_Set_Start_Cmd(MOT1, RUN_STATE);
     }
     else if (direction == DIR_BK)//后
     {
-        g_position_set = POS_UP;//上
+        g_position_set = POS_DOWN;//上
         Set_Mot_Roll_Paras(MOT1, mot1_info.set_speed_sel, DIR_CCW, mot1_info.set_ramp_sel);
         Mot_Set_Start_Cmd(MOT1, RUN_STATE);
     }
     else if (direction == DIR_LF)//左
     {
-        g_position_set = POS_DOWN;//下
+        g_position_set = POS_UP;//下
         Set_Mot_Roll_Paras(MOT2, mot2_info.set_speed_sel, DIR_CW, mot2_info.set_ramp_sel);
         Mot_Set_Start_Cmd(MOT2, RUN_STATE);
     }
     else if (direction == DIR_RT)//右
     {
-        g_position_set = POS_DOWN;//下
+        g_position_set = POS_UP;//下
         Set_Mot_Roll_Paras(MOT2, mot2_info.set_speed_sel, DIR_CCW, mot2_info.set_ramp_sel);
         Mot_Set_Start_Cmd(MOT2, RUN_STATE);
     }
@@ -856,7 +860,7 @@ void moto_ctrl_convey_process(void)
 void moto_roll_test_process(void)
 {
     roll_test++;
-    if (roll_test > 5000)
+    if (roll_test > 2000)
     {
         roll_test = 0;
         if (roll_flag == 0) {

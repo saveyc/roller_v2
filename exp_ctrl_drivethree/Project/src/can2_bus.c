@@ -74,7 +74,9 @@ void vcanbus_frame_receive_two(CanRxMsg rxMsg)
 
     memcpy(frame.data, rxMsg.Data, rxMsg.DLC);
     
-    vcanbus_addto_cansendqueue_one(frame);
+    if (frame.extId.mac_id != 1) {
+        vcanbus_addto_cansendqueue_one(frame);
+    }
 
     if ((frame.extId.dst_id != localStation) && (frame.extId.dst_id != 0xFF)) {
         return;

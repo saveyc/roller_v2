@@ -80,7 +80,10 @@ void vcanbus_framereceive_one(CanRxMsg rxMsg)
         frame.data[i] = rxMsg.Data[i];
     }
     
-     vcanbus_addto_cansendqueue_two(frame);
+    if (frame.extId.mac_id == 1) {
+        vcanbus_addto_cansendqueue_two(frame);
+    }
+
     
     if ((frame.extId.dst_id != localStation) && (frame.extId.dst_id != 0xFF)) {
         return;

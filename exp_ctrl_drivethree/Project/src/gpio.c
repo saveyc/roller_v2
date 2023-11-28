@@ -43,7 +43,7 @@ void gpio_handleInputScan()
         && input_dip_speed.input_middle_state != input_dip_speed.input_state)
     {
         input_dip_speed.input_confirm_times++;
-        if (input_dip_speed.input_confirm_times > 10)
+        if (input_dip_speed.input_confirm_times > 2)
         {
             input_dip_speed.input_state = input_dip_speed.input_middle_state;
             input_dip_speed.input_confirm_times = 0;
@@ -65,7 +65,7 @@ void gpio_handleInputScan()
         && input_dip_dir.input_middle_state != input_dip_dir.input_state)
     {
         input_dip_dir.input_confirm_times++;
-        if (input_dip_dir.input_confirm_times > 10)
+        if (input_dip_dir.input_confirm_times > 2)
         {
             input_dip_dir.input_state = input_dip_dir.input_middle_state;
             input_dip_dir.input_confirm_times = 0;
@@ -87,7 +87,7 @@ void gpio_handleInputScan()
         && input_dip_mod.input_middle_state != input_dip_mod.input_state)
     {
         input_dip_mod.input_confirm_times++;
-        if (input_dip_mod.input_confirm_times > 10)
+        if (input_dip_mod.input_confirm_times > 2)
         {
             input_dip_mod.input_state = input_dip_mod.input_middle_state;
             input_dip_mod.input_confirm_times = 0;
@@ -114,7 +114,7 @@ void gpio_handleInputScan()
         && input_in1_1.input_middle_state != input_in1_1.input_state)
     {
         input_in1_1.input_confirm_times++;
-        if (input_in1_1.input_confirm_times > 10)
+        if (input_in1_1.input_confirm_times > 2)
         {
             input_in1_1.input_state = input_in1_1.input_middle_state;
             input_in1_1.input_confirm_times = 0;
@@ -155,7 +155,7 @@ void gpio_handleInputScan()
         && input_in1_2.input_middle_state != input_in1_2.input_state)
     {
         input_in1_2.input_confirm_times++;
-        if (input_in1_2.input_confirm_times > 10)
+        if (input_in1_2.input_confirm_times > 2)
         {
             input_in1_2.input_state = input_in1_2.input_middle_state;
             input_in1_2.input_confirm_times = 0;
@@ -196,7 +196,7 @@ void gpio_handleInputScan()
         && input_in2_1.input_middle_state != input_in2_1.input_state)
     {
         input_in2_1.input_confirm_times++;
-        if (input_in2_1.input_confirm_times > 10)
+        if (input_in2_1.input_confirm_times > 2)
         {
             input_in2_1.input_state = input_in2_1.input_middle_state;
             input_in2_1.input_confirm_times = 0;
@@ -237,7 +237,7 @@ void gpio_handleInputScan()
         && input_in2_2.input_middle_state != input_in2_2.input_state)
     {
         input_in2_2.input_confirm_times++;
-        if (input_in2_2.input_confirm_times > 10)
+        if (input_in2_2.input_confirm_times > 2)
         {
             input_in2_2.input_state = input_in2_2.input_middle_state;
             input_in2_2.input_confirm_times = 0;
@@ -278,7 +278,7 @@ void gpio_handleInputScan()
         && input_in3_1.input_middle_state != input_in3_1.input_state)
     {
         input_in3_1.input_confirm_times++;
-        if (input_in3_1.input_confirm_times > 10)
+        if (input_in3_1.input_confirm_times > 2)
         {
             input_in3_1.input_state = input_in3_1.input_middle_state;
             input_in3_1.input_confirm_times = 0;
@@ -308,7 +308,7 @@ void gpio_handleInputScan()
         && input_in3_2.input_middle_state != input_in3_2.input_state)
     {
         input_in3_2.input_confirm_times++;
-        if (input_in3_2.input_confirm_times > 10)
+        if (input_in3_2.input_confirm_times > 2)
         {
             input_in3_2.input_state = input_in3_2.input_middle_state;
             input_in3_2.input_confirm_times = 0;

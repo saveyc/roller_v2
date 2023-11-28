@@ -84,8 +84,8 @@ void flash_init(void)
     else {
         mot1_info.value = VALUE;
         mot2_info.value = VALUE;
-        Set_Mot_Roll_Paras(MOT1, 7, DIR_CW, 2);
-        Set_Mot_Roll_Paras(MOT2, 7, DIR_CW, 2);
+        Set_Mot_Roll_Paras(MOT1, 4, DIR_CW, 0);
+        Set_Mot_Roll_Paras(MOT2, 4, DIR_CW, 0);
 
     }
 #else
@@ -117,8 +117,8 @@ void flash_init(void)
 else {
     mot1_info.value = VALUE;
     mot2_info.value = VALUE;
-    Set_Mot_Roll_Paras(MOT1, 7, DIR_CW, 2);
-    Set_Mot_Roll_Paras(MOT2, 7, DIR_CW, 2);
+    Set_Mot_Roll_Paras(MOT1, 4, DIR_CW, 0);
+    Set_Mot_Roll_Paras(MOT2, 4, DIR_CW, 0);
 
 }
 #endif

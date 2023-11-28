@@ -7,7 +7,7 @@ extern u16 cansend_framecnt_one[];
 extern u16 cansend_framecnt_two[];
 extern u16 cansend_framecnt_rise[];
 
-#define   SEND_STARTCMD_CNT  10
+#define   SEND_STARTCMD_CNT  50
 
 enum {
 	DIR_NONE = 0,

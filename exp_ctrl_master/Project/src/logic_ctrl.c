@@ -102,10 +102,9 @@ void logic_pkg_trans_process(void)
 				}
 
 
-				//判断下一区域的是否有包裹   *
+				//判断下一区域的是否有包裹  
 				if (nextstatenode != NULL) {
-					if (((pkgnode->nextZonedir == RUN_AHEAD_TOBACK) || (pkgnode->nextZonedir == RUN_LEFT_TOBACK)
-						|| (pkgnode->nextZonedir == RUN_RIGHT_TOBACK))) {
+					if (pkgnode->nextZonedir == RUN_AHEAD_TOBACK) {
 						nextpkgstat = ((((nextstatenode->zoneState >> 1) & 0x1) == 1)|| (((nextstatenode->zoneState >> 3) & 0x1) == 1));
 						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
 							pkgnode->nextZonecurpkgstat = nextpkgstat;
@@ -113,8 +112,25 @@ void logic_pkg_trans_process(void)
 							pkgnode->nextZonechangenum++;
 						}
 					}
-					if (((pkgnode->nextZonedir == RUN_BACK_TOAHEAD) || (pkgnode->nextZonedir == RUN_LEFT_TOAHEAD)
-						|| (pkgnode->nextZonedir == RUN_RIGHT_TOAHEAD)) ) {
+					if (pkgnode->nextZonedir == RUN_AHEAD_TOBACK) {
+						nextpkgstat = (((nextstatenode->zoneState >> 1) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+					if (pkgnode->nextZonedir == RUN_RIGHT_TOBACK) {
+						nextpkgstat = (((nextstatenode->zoneState >> 3) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+
+
+					if (pkgnode->nextZonedir == RUN_BACK_TOAHEAD) {
 						nextpkgstat = ((((nextstatenode->zoneState >> 2) & 0x1) == 1) || (((nextstatenode->zoneState >> 4) & 0x1) == 1));
 						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
 							pkgnode->nextZonecurpkgstat = nextpkgstat;
@@ -123,8 +139,27 @@ void logic_pkg_trans_process(void)
 						}
 						
 					}
-					if (((pkgnode->nextZonedir == RUN_RIGHT_TOLEFT) || (pkgnode->nextZonedir == RUN_AHEAD_TOLEFT)
-						|| (pkgnode->nextZonedir == RUN_BACK_TOLEFT))) {
+					if (pkgnode->nextZonedir == RUN_LEFT_TOAHEAD) {
+						nextpkgstat = (((nextstatenode->zoneState >> 4) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+
+					}
+					if (pkgnode->nextZonedir == RUN_RIGHT_TOAHEAD) {
+						nextpkgstat = (((nextstatenode->zoneState >> 2) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+
+					}
+
+
+					if (pkgnode->nextZonedir == RUN_RIGHT_TOLEFT) {
 						nextpkgstat = ((((nextstatenode->zoneState >> 2) & 0x1) == 1) || (((nextstatenode->zoneState >> 3) & 0x1) == 1));
 						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
 							pkgnode->nextZonecurpkgstat = nextpkgstat;
@@ -132,9 +167,42 @@ void logic_pkg_trans_process(void)
 							pkgnode->nextZonechangenum++;
 						}						
 					}
-					if (((pkgnode->nextZonedir == RUN_LEFT_TORIGHT) || (pkgnode->nextZonedir == RUN_AHEAD_TORIGHT)
-						|| (pkgnode->nextZonedir == RUN_BACK_TORIGHT))) {
-						nextpkgstat = ((((nextstatenode->zoneState >> 1) & 0x1) == 1) || (((nextstatenode->zoneState >> 4) & 0x1) == 1));
+					if (pkgnode->nextZonedir == RUN_AHEAD_TOLEFT) {
+						nextpkgstat = (((nextstatenode->zoneState >> 3) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+					if (pkgnode->nextZonedir == RUN_BACK_TOLEFT) {
+						nextpkgstat = (((nextstatenode->zoneState >> 2) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+
+
+					if (pkgnode->nextZonedir == RUN_LEFT_TORIGHT) {
+						nextpkgstat = (((nextstatenode->zoneState >> 1) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+					if (pkgnode->nextZonedir == RUN_AHEAD_TORIGHT) {
+						nextpkgstat = (((nextstatenode->zoneState >> 1) & 0x1) == 1);
+						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
+							pkgnode->nextZonecurpkgstat = nextpkgstat;
+							pkgnode->nextZonepkgstatchange = VALUE;
+							pkgnode->nextZonechangenum++;
+						}
+					}
+					if (pkgnode->nextZonedir == RUN_BACK_TORIGHT) {
+						nextpkgstat = (((nextstatenode->zoneState >> 4) & 0x1) == 1);
 						if (pkgnode->nextZonecurpkgstat != nextpkgstat) {
 							pkgnode->nextZonecurpkgstat = nextpkgstat;
 							pkgnode->nextZonepkgstatchange = VALUE;
@@ -387,7 +455,7 @@ void logic_pkg_trans_process(void)
 				}
 
 				//当前区域要发送的命令更新
-				if ((pkgnode->curZonenum) >= (pkgnode->totalzoneNum - 1)) {
+				if ((pkgnode->curZonenum) >= (pkgnode->totalzoneNum - 1)) {     //最后一节皮带
 					moudlecmdcur.moudle = curnode->beltMoudleIndex;
 					moudlecmdcur.cmd = RUN_CMD;
 					moudlecmdcur.dir = pkgnode->curZonedir;
@@ -464,7 +532,7 @@ void logic_pkg_trans_process(void)
 				}
 
 
-				//给从控制器发送指令
+				//给从控制器发送指令  //区域发生切换的情况下
 				if (pkgnode->curZonenum != pkgnode->lastZonenum)
 				{
 					pkgnode->lastZonenum = pkgnode->curZonenum;
@@ -505,6 +573,7 @@ void logic_pkg_trans_process(void)
 
 				}
 
+				//下一段皮带光电发生了变化
 				if (pkgnode->nextZonepkgstatchange == VALUE) {
 					pkgnode->nextZonepkgstatchange = INVALUE;
 					//给当前的模块发送运行指令
@@ -540,6 +609,7 @@ void logic_pkg_trans_process(void)
 					}
 				}
 
+				//固定时间轮询发送 50ms
 				if (pkgnode->sendcmdcnt >= SEND_STARTCMD_CNT) {
 					pkgnode->sendcmdcnt = 0;
 

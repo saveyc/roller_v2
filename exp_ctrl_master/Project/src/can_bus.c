@@ -86,6 +86,7 @@ void module_status_recv_process(u8* buf,u16 recv_len,u8 src_id)
 {
     u8 index = 0;
     index = src_id - 2;
+    u16 i =0;
     
     static u16 cnt = 0;
 
@@ -99,6 +100,10 @@ void module_status_recv_process(u8* buf,u16 recv_len,u8 src_id)
     }
 
     beltMoudlestate.state[index].ctrlindex = src_id;
+    
+    if(src_id == 3){
+       i =0;
+    }
 
     beltMoudlestate.state[index].node[0].zoneState = buf[0];
     beltMoudlestate.state[index].node[0].zoneAlarm = buf[1];

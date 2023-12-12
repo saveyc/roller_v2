@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Project",
+    "\\Project\\inc",
     "\\Project\\src"
   ],
-  "SelectedNode": "\\Project\\src\\can1_bus.c",
+  "SelectedNode": "\\Project\\src\\main.c",
   "PreviewInSolutionExplorer": false
 }

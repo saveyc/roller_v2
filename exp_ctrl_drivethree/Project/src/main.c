@@ -153,7 +153,7 @@ void main_onems_process(void)
         //flash
           flash_upload_write_buff();
         
-//        can_reply_set_para();
+        // can_reply_set_para();
 
 
 //        moto_set_run_cmd(MOT1,RUN_STATE,RUN_TRIGSTOP,RUN_BACK_TOAHEAD); 

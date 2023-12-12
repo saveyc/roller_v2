@@ -53,6 +53,7 @@ extern u16 cansend_framecnt_one;
 extern u16 cansend_framecnt_two;
 
 extern u16 upload_state_cnt;
+extern u16 upload_now;
 
 
 void Mot_msg_init(void);

@@ -101,7 +101,7 @@ void module_status_recv_process(u8* buf,u16 recv_len,u8 src_id)
 
     beltMoudlestate.state[index].ctrlindex = src_id;
     
-    if(src_id == 3){
+    if(src_id == 8){
        i =0;
     }
 
@@ -111,6 +111,27 @@ void module_status_recv_process(u8* buf,u16 recv_len,u8 src_id)
     beltMoudlestate.state[index].node[1].zoneAlarm = buf[3];
     beltMoudlestate.state[index].node[2].zoneState = buf[4] | (buf[5] << 8);
     beltMoudlestate.state[index].node[2].zoneAlarm = buf[6] | (buf[7] << 8);
+
+
+    // 包裹分拣成功以后 清除状态信息
+    if (beltMoudlestate.state[index].node[0].transsuccess == VALUE) {
+        if (((beltMoudlestate.state[index].node[0].zoneState >> 1) == 0) && ((beltMoudlestate.state[index].node[0].zoneState >> 2) == 0)) {
+            beltMoudlestate.state[index].node[0].transsuccess = INVALUE;
+            beltMoudlestate.state[index].node[0].zonePkg = 0;
+            beltMoudlestate.state[index].node[0].zoneNextpkg = 0;
+            beltMoudlestate.state[index].node[0].zoneAlarm &= ~(0x3 << 9);      //清除货物报警状态
+        }
+    }
+
+    if (beltMoudlestate.state[index].node[1].transsuccess == VALUE) {
+        if (((beltMoudlestate.state[index].node[1].zoneState >> 1) == 0) && ((beltMoudlestate.state[index].node[0].zoneState >> 2) == 0)) {
+            beltMoudlestate.state[index].node[1].transsuccess = INVALUE;
+            beltMoudlestate.state[index].node[1].zonePkg = 0;
+            beltMoudlestate.state[index].node[1].zoneNextpkg = 0;
+            beltMoudlestate.state[index].node[0].zoneAlarm &= ~(0x3 << 9);      //清除货物报警状态
+        }
+    }
+
 }
 
 void canbus_recv_can_msg(u8* buf, u16 len, u8 bdindex,u8 type) 

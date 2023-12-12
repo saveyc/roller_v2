@@ -141,6 +141,7 @@ void CAN1_RX0_IRQHandler(void)
     CanRxMsg RxMessage;
     CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);
     CAN_ClearITPendingBit(CAN1,CAN_IT_FMP0);
+
     vcanbus_framereceive_one(RxMessage);
 }
 

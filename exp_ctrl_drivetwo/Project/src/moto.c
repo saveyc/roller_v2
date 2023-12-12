@@ -15,6 +15,7 @@ u16 cansend_framecnt_two = 0xFFFF;
 
 u16 ramp_delay = 0;
 u16 upload_state_cnt = 0;
+u16 upload_now = 0;
 
 
 void Mot_msg_init(void)
@@ -39,7 +40,7 @@ void Set_Mot_Roll_Paras(u8 motX, u8 speed_sel, u8 dir_sel, u8 ramp_sel)
         dir_sel = DIR_CW;
     }
 
-    if ((ramp_sel > 7) || (ramp_sel == 0)) {
+    if (ramp_sel > 7) {
         ramp_sel = 7;
     }
 
@@ -303,17 +304,20 @@ void Mot_upload_all_state(void)
     u16 sendlen = 0;
     u16 i = 0;
 
-    if (upload_state_cnt == 0) {
-        return;
-    }
-    if (upload_state_cnt != 0) {
-        upload_state_cnt--;
-    }
+    
+    if (upload_now == 0) {
+        if (upload_state_cnt == 0) {
+            return;
+        }
+        if (upload_state_cnt != 0) {
+            upload_state_cnt--;
+        }
 
-    if (upload_state_cnt != 0) {
-        return;
+        if (upload_state_cnt != 0) {
+            return;
+        }
     }
-
+    upload_now = 0;
 
     for (i = 0; i < 20; i++) {
         buff[i] = 0;

@@ -18,6 +18,8 @@ u16 ramp_delay = 0;
 u16 upload_state_cnt = 0;
 u16 ramp_delay_three = 0;
 
+u16 upload_now = 0;
+
 
 u8 g_position_status = POS_INIT;//顶升机构状态
 u8 g_position_set = POS_DOWN;//设置的位置
@@ -427,17 +429,19 @@ void Mot_upload_all_state(void)
     u16 sendlen = 0;
     u16 i = 0;
 
-    if (upload_state_cnt == 0) {
-        return;
-    }
-    if (upload_state_cnt != 0) {
-        upload_state_cnt--;
-    }
+    if (upload_now == 0) {
+        if (upload_state_cnt == 0) {
+            return;
+        }
+        if (upload_state_cnt != 0) {
+            upload_state_cnt--;
+        }
 
-    if (upload_state_cnt != 0) {
-        return;
+        if (upload_state_cnt != 0) {
+            return;
+        }
     }
-
+    upload_now = 0;
 
     for (i = 0; i < 20; i++) {
         buff[i] = 0;

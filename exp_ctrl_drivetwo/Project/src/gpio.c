@@ -117,6 +117,8 @@ void gpio_handleInputScan()
         {
             input_in1_1.input_state = input_in1_1.input_middle_state;
             input_in1_1.input_confirm_times = 0;
+            upload_now = 1;
+
             if (input_in1_1.input_state == 1)
             {
                 input_in1_1.input_trig_mode = INPUT_TRIG_UP;
@@ -158,6 +160,7 @@ void gpio_handleInputScan()
         {
             input_in1_2.input_state = input_in1_2.input_middle_state;
             input_in1_2.input_confirm_times = 0;
+            upload_now = 1;
             if (input_in1_2.input_state == 1)
             {
                 input_in1_2.input_trig_mode = INPUT_TRIG_UP;
@@ -199,6 +202,7 @@ void gpio_handleInputScan()
         {
             input_in2_1.input_state = input_in2_1.input_middle_state;
             input_in2_1.input_confirm_times = 0;
+            upload_now = 1;
             if (input_in2_1.input_state == 1)
             {
                 input_in2_1.input_trig_mode = INPUT_TRIG_UP;
@@ -240,6 +244,7 @@ void gpio_handleInputScan()
         {
             input_in2_2.input_state = input_in2_2.input_middle_state;
             input_in2_2.input_confirm_times = 0;
+            upload_now = 1;
             if (input_in2_2.input_state == 1)
             {
                 input_in2_2.input_trig_mode = INPUT_TRIG_UP;
@@ -281,6 +286,7 @@ void gpio_handleInputScan()
         {
             input_x1.input_state = input_x1.input_middle_state;
             input_x1.input_confirm_times = 0;
+            upload_now = 1;
             if (input_x1.input_state == 1)
             {
                 input_x1.input_trig_mode = INPUT_TRIG_UP;
@@ -311,6 +317,7 @@ void gpio_handleInputScan()
         {
             input_x2.input_state = input_x2.input_middle_state;
             input_x2.input_confirm_times = 0;
+            upload_now = 1;
             if (input_x2.input_state == 1)
             {
                 input_x2.input_trig_mode = INPUT_TRIG_UP;

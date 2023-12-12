@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-969963316
+Checksum=-897918396
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -110,8 +110,7 @@ Bp14=_ "STD_CODE" "{E:\work\ASS\嵌入式\car\Software\source\wuliu_16100701_moto_s
 Bp15=_ "STD_CODE" "{E:\work\ASS\嵌入式\car\Software\source\wuliu_16101301_moto_statue_IO_GD025_hb_IAP10_gz_fk\Project\src\TCPclient.c}.587.9@1" 0 0 0 0 "" 0 "" 0
 Bp16=_ "STD_CODE" "{E:\work\ASS\嵌入式\car\Software\source\wuliu_16101301_moto_statue_IO_GD025_hb_IAP10_gz_fk\Project\src\TCPclient.c}.571.13@1" 0 0 0 0 "" 0 "" 0
 Bp17=_ "STD_CODE" "{G:\roller_v2\roller_v2\exp_ctrl_drivetwo\Project\src\can2_bus.c}.69.5@1" 1 0 0 0 "" 0 "" 0
-Bp18=_ "STD_CODE" "{G:\roller_v2\roller_v2\exp_ctrl_drivetwo\Project\src\can1_bus.c}.107.9@1" 1 0 0 0 "" 0 "" 0
-Count=19
+Count=18
 [Aliases]
 A0=_ "E:\work\分拣\STM32F107_ETH_LwIP_V1.0.0\Libraries\STM32_ETH_Driver\src\stm32_eth.c" ""
 Count=1

@@ -90,6 +90,7 @@ extern u8 g_position_status;//顶升机构状态
 extern u8 g_position_set;//设置的位置
 
 extern u16 upload_state_cnt;
+extern u16 upload_now;
 
 
 void Mot_msg_init(void);

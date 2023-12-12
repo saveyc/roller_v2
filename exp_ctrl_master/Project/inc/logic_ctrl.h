@@ -7,7 +7,14 @@ extern u16 cansend_framecnt_one[];
 extern u16 cansend_framecnt_two[];
 extern u16 cansend_framecnt_rise[];
 
+// 轮询发送指令的轮询时间
 #define   SEND_STARTCMD_CNT  50
+
+// 包裹在一个模块上理论的最大运输时间  大于则异常
+#define   LOGIC_TRANS_MAXTIME  10000
+
+// 包裹结束后一段时间 前一段模块停止
+#define   LOGIC_TRANS_CHUTDOWNTIME  2000  
 
 enum {
 	DIR_NONE = 0,
@@ -54,9 +61,24 @@ typedef struct
 	u8  type;                   //转动类型 遇到光电就停 还是一直转
 }sMoudle_cmd;
 
+//命令队列
+typedef struct
+{
+	sMoudle_cmd cmd;          //命令队列
+	u16 chutDown;             //倒计时
+	u16 ctrlIndex;            //控制器站号索引
+	u16 value;                //是否有效
+}sModule_node;
+
 #pragma pack ()
 
+extern sModule_node   moduleNode[];
+
 void logic_pkg_trans_process(void);
+
+void logicModuleNodeInit(void);
+void logicAddModuleNodeQueue(sModule_node x);
+void logicDealWithModuleNodeQueue(void);
 
 
 

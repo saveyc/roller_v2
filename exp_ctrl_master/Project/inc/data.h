@@ -98,6 +98,7 @@ typedef struct {
 									   // bit8 该模块未连接  Bit9  区域接货超时  Bit10  区域出货超时 Bit11 顶升模块电机故障1/未连接  Bit12 顶升模块电机故障2/未连接
 									   // Bit13 顶升模块电机故障3/未连接  	                                  
 	u32 zonePkg;                       // 包裹编号 预留  默认0
+	u32 zoneNextpkg;                   // 该段皮带将要执行的包裹编号  私有数据 不上传状态
 	u16 transsuccess;                  // 成功分拣
 }sData_RealtimeState;
 
@@ -127,6 +128,8 @@ typedef struct {
 	u16 totalzoneNum;                       //包裹需要途径的区域数量
 	u16 zoneindex[BELT_ZONE_NUM];           //包裹途径的具体路径
 	u16 lastZonenum;                        //包裹上一次所属区域索引
+	u16 lastZoneDir;                        //包裹上一个区域方向
+	u16 preZoneChutdown;                    //包裹上一个区域停止计时
 	u16 curZonenum;                         //当前包裹所属区域索引
 	u16 curZoneIndex;                       //当前的区域编号
 	u16 curZoneStatus;                      //包裹在当前区域的状态
@@ -145,6 +148,7 @@ typedef struct {
 	u16 nextZonecurpkgstat;                 //包裹欲前往的下一个区域的当前的包裹状态
 	u16 nextZonepkgstatchange;              //包裹欲前往的下一个区域的当前的包裹状态变化
 	u16 nextZonechangenum;                  //包裹欲前往的下一个区域的当前的包裹状态变化次数
+	u16 nextZoneCmdValue;                   //允许控制下一个区域;
 	u16 theThirdZone;                       //下一个区域的下一个区域
     u16 allowState;                         //禁止运输、允许运送、取消运输
 	u16 sendcmdcnt;                         //给从板卡发送启停命令计时

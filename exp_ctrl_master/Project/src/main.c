@@ -219,6 +219,8 @@ void main_init_msg(void)
     DatainitpkgQueue();
     //flash.h
     flash_read_zone_conf();
+    //logic.h
+    logicModuleNodeInit();
 }
 
 void main_onems_process(void)
@@ -228,6 +230,7 @@ void main_onems_process(void)
 
         //logic_ctrl.c
         logic_pkg_trans_process();
+        logicDealWithModuleNodeQueue();
 
         //fun.h
         upload_moudle_state();
